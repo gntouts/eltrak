@@ -35,7 +35,8 @@ class SpeedexOrder:
             steps = []
             for update in updates:
                 temp = {}
-                temp['status'] = update.find('h4').get_text()
+                temp['status'] = update.find(
+                    'h4').get_text().replace('  ', ' ')
                 timespace = update.find(
                     attrs={"class": "font-small-3"}).get_text()
                 time = timespace.split(',')[-1].strip()
