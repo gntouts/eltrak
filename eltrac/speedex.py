@@ -8,6 +8,7 @@ from typing import Optional
 class Order(BaseModel):
     tracking: str
     courier: Optional[str] = None
+    updates: Optional[list] = None
 
     class Config:
         schema_extra = {
