@@ -1,8 +1,12 @@
 from fastapi import FastAPI
 from apifunctions import getSpeedex
 from fastapi.middleware.cors import CORSMiddleware
+from eltrac import speedex
 
-app = FastAPI()
+app = FastAPI(title="eltrak",
+              description="**eltrak** intends to become a free to use API to get shipping status for Greek courier services.<br>Currently, it **only** supports **Speedex Courier** with ACS Courier coming next. Any help is welcome.",
+              version="0.0.1", docs_url="/documentation", redoc_url=None
+              )
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -11,12 +15,17 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-def read_root():
-    return {"Project": "eltrak", "Repository": "https://github.com/gntouts/eltrak"}
+@ app.get("/")
+def general():
+    return {"Project": "eltrak", "Repository": "https://github.com/gntouts/eltrak", "Documentation": "https://eltrak.herokuapp.com/documentation"}
 
 
-@app.get("/v1/track/speedex/{tracking}")
-def trackSpeedex(tracking: int):
+@ app.get("/v1/track/speedex/{tracking}", tags=["Speedex"])
+def trackSpeedex(tracking: str, order: speedex.Order):
+    """Tracks Speedex vouchers 
+
+    Parameters:
+    tracking (str): Tracking number
+   """
     response = getSpeedex(tracking=tracking)
     return response

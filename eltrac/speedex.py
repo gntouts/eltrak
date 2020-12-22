@@ -1,6 +1,22 @@
 import requests
 from bs4 import BeautifulSoup
 import datetime
+from pydantic import BaseModel
+from typing import Optional
+
+
+class Order(BaseModel):
+    tracking: str
+    courier: Optional[str] = None
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "tracking": "700005728133",
+                "courier": "Speedex",
+                "updates": [{"status": "ΕΙΣΑΓΩΓΗ ΣΕ ΚΑΤΑΣΤΗΜΑ", "time": "21/12/2020 στις 18:48", "space": "ΠΑΤΡΑ  ΚΑΝΑΡΗ", "datetime": "2020-12-21T18:48:00"}, {"status": "ΠΑΡΑΛΑΒΗ ΑΠΟ ΠΕΛΑΤΗ", "time": "21/12/2020 στις 18:52", "space": "ΠΑΤΡΑ  ΚΑΝΑΡΗ", "datetime": "2020-12-21T18:52:00"}, {"status": "ΕΞΑΓΩΓΗ ΑΠΟ ΚΑΤΑΣΤΗΜΑ", "time": "21/12/2020 στις 23:40", "space": "ΠΑΤΡΑ  ΚΑΝΑΡΗ", "datetime": "2020-12-21T23:40:00"}, {"status": "ΕΙΣΑΓΩΓΗ ΣΕ Δ/Κ", "time": "21/12/2020 στις 23:41", "space": "ΔΙΑΜΕΤΑΚΟΜΙΣΤΙΚΟ ΚΕΝΤΡΟ ΑΙΓΙΟΥ", "datetime": "2020-12-21T23:41:00"}]
+            }
+        }
 
 
 class SpeedexOrder:
