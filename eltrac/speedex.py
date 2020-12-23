@@ -18,11 +18,11 @@ class SpeedexOrder:
         else:
             soup = BeautifulSoup(requests.get(self.url).text, "lxml")
             updates = soup.find_all(attrs={"class": "timeline-item"})
-            final = ''
+            final = None
 
             final = soup.find(attrs={"class":"delivered-speedex"})
             
-            if final!='':
+            if final!=None:
                 tremp = final.find('p').text
                 timespace = final.find(
                     attrs={"class": "font-small-3"}).get_text()
@@ -48,7 +48,7 @@ class SpeedexOrder:
             if steps == []:
                 self.result = 'No data'
             else:
-                if self.final !='':
+                if self.final !=None:
                     steps.append(self.final)
                 self.result = steps
                 
