@@ -20,8 +20,8 @@ def general():
     return {"Project": "eltrak", "Repository": "https://github.com/gntouts/eltrak", "Documentation": "https://eltrak.herokuapp.com/documentation"}
 
 
-@ app.get("/v1/track/speedex/{tracking}", tags=["Speedex"])
-def trackSpeedex(tracking: str, order: speedex.Order):
+@ app.get("/v1/track/speedex/{tracking}")
+def trackSpeedex(tracking):
     """Tracks Speedex vouchers 
 
     Parameters:
