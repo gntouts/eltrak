@@ -49,6 +49,7 @@ class SpeedexOrder:
                 self.result = 'No data'
             else:
                 if self.final !='':
-                    self.result = steps.append(self.final)
-
+                    steps.append(self.final)
+                self.result = steps
+                
 new = SpeedexOrder('700005668380')
