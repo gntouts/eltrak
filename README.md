@@ -15,8 +15,7 @@ or
 
 `https://eltrak.herokuapp.com/v1/track/[COURIER]/[TRACKINGNUMBER]`
 
-For example:
-Python:
+For example in Python:
 ```
 import requests
 res = requests.get('http://api.trackingr.eu/v1/track/speedex/010011110101')
