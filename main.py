@@ -3,8 +3,11 @@ from apifunctions import getACS, getElta, getSpeedex
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="eltrak",
-              description="**eltrak** intends to become a free to use API to get shipping status for Greek courier services.<br>Currently, it **only** supports **Speedex and ACS Courier**. ACS functionality is not tested properly and may return No data due to unknown errors. <br>Next step will be Elta Courier and soon Geniki Tachidromiki will follow. Any help is welcome.",
-              version="0.0.2", docs_url="/documentation", redoc_url=None
+              description="""**eltrak** intends to become a free to use API to get shipping status for Greek courier services.
+              <br>Currently, it **only** supports **ACS, Elta Courier and Speedex Courier**. Due to lack of tracking numbers in a variety of states
+              to test with, some errors are to be expected.
+              <br>Geniki Tachidromiki will follow soon. Any help is welcome. Even if you just provide me with test tracking numbers.""",
+              version="1.0.3", docs_url="/documentation", redoc_url=None
               )
 app.add_middleware(
     CORSMiddleware,
