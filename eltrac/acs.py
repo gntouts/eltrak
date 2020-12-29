@@ -43,8 +43,8 @@ class ACSOrder:
                         state[0][:-3], '%d/%m/%Y %H:%M')
                     updates.append(temp)
                 if len(updates) > 0:
-                    self.results = updates
+                    self.result = updates
                 else:
-                    self.results = 'No data'
+                    self.result = 'No data'
             else:
-                self.results = 'No data'
+                self.result = 'No data'
