@@ -32,6 +32,7 @@ class ACSOrder:
                 rows = str(script).split('_r={rows:')[-1].split(';')[0]
                 rows = rows.replace('id', '"id"').replace(
                     'cell', '"cell"')[:-1]
+                rows = eval(rows)
                 for row in rows:
                     state = row['cell']
                     temp = {}
