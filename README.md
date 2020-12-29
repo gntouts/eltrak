@@ -8,8 +8,11 @@ to test with, some errors are to be expected.
 
 ### Usage
 Simply, perform a GET request to the following URL:
+
 `http://api.trackingr.eu/v1/track/[COURIER]/[TRACKINGNUMBER]`
+
 or
+
 `https://eltrak.herokuapp.com/v1/track/[COURIER]/[TRACKINGNUMBER]`
 
 For example:
@@ -20,7 +23,7 @@ res = requests.get('http://api.trackingr.eu/v1/track/speedex/010011110101')
 print(res.json())
 ```
 
-###Installation
+### Installation
 
 In order to run the server locally (or anywhere else) run the following commands:
 1) Clone the repository and change directory:
