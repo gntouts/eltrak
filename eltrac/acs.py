@@ -37,7 +37,8 @@ class ACSOrder:
                     state = row['cell']
                     temp = {}
                     temp['status'] = state[1]
-                    temp['time'] = state[0].split(' ')[-1][:-3]
+                    temp['time'] = state[0].split(
+                        ' ')[0]+' στις ' + state[0].split(' ')[-1][:-3]
                     temp['space'] = state[2]
                     temp['datetime'] = datetime.datetime.strptime(
                         state[0][:-3], '%d/%m/%Y %H:%M')
