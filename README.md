@@ -33,12 +33,17 @@ cd eltrak
 
 2) Install requirements (it is recommended to use a virtual environment, see [venv](https://docs.python.org/3/library/venv.html) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html)):
 Because uvloop does not support Windows at the moment, you need to skip installing it if you are using a Windows machine.
+
 For Windows:
+
 ```pip install -r windows-requirements.txt```
+
 For Ubuntu and Debian:
+
 ```pip install -r requirements.txt```
 
 3) Activate your environment (if you used one) and run the server
+
 ```uvicorn main:app --port=8888```
 
 ### Contributing
