@@ -7,7 +7,7 @@ app = FastAPI(title="eltrak",
               <br>Currently, it **only** supports **ACS, Elta Courier and Speedex Courier**. Due to lack of tracking numbers in a variety of states
               to test with, some errors are to be expected.
               <br>Geniki Tachidromiki will follow soon. Any help is welcome. Even if you just provide me with test tracking numbers.""",
-              version="1.0.3", docs_url="/documentation", redoc_url="redoc"
+              version="1.0.3", docs_url="/documentation", redoc_url="/redoc"
               )
 app.add_middleware(
     CORSMiddleware,
