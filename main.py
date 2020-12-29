@@ -4,8 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from eltrac import speedex
 
 app = FastAPI(title="eltrak",
-              description="**eltrak** intends to become a free to use API to get shipping status for Greek courier services.<br>Currently, it **only** supports **Speedex Courier** with ACS Courier coming next. Any help is welcome.",
-              version="0.0.1", docs_url="/documentation", redoc_url=None
+              description="**eltrak** intends to become a free to use API to get shipping status for Greek courier services.<br>Currently, it **only** supports **Speedex and ACS Courier**. ACS functionality is not tested properly and may return No data due to unknown errors. <br>Next step will be Elta Courier and soon Geniki Tachidromiki will follow. Any help is welcome.",
+              version="0.0.2", docs_url="/documentation", redoc_url=None
               )
 app.add_middleware(
     CORSMiddleware,
