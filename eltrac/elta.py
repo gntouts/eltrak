@@ -36,7 +36,7 @@ class EltaOrder:
                     else:
                         self.result = 'No data!'
                 else:
-                    self.result = 'No data!'
+                    self.result = 'Wrong tracking number!'
             except:
                 self.result = 'Application Error'
 
