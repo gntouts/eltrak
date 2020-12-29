@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from apifunctions import getACS, getSpeedex
 from fastapi.middleware.cors import CORSMiddleware
-from eltrac import speedex
 
 app = FastAPI(title="eltrak",
               description="**eltrak** intends to become a free to use API to get shipping status for Greek courier services.<br>Currently, it **only** supports **Speedex and ACS Courier**. ACS functionality is not tested properly and may return No data due to unknown errors. <br>Next step will be Elta Courier and soon Geniki Tachidromiki will follow. Any help is welcome.",
@@ -32,7 +31,7 @@ def trackSpeedex(tracking):
 
 
 @ app.get("/v1/track/acs/{tracking}")
-def trackSpeedex(tracking):
+def trackACS(tracking):
     """Tracks ACS vouchers 
 
     Parameters:
