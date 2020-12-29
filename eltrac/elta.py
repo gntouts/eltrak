@@ -16,22 +16,25 @@ class EltaOrder:
             self.result = 'Invalid tracking number'
         else:
             postData = {'number': self.tracking}
-            response = requests.post(self.url, data=postData).content
-            response = json.loads(response)
             try:
+                response = requests.post(self.url, data=postData).content
+                response = json.loads(response)
                 states = response['result'][self.tracking]['result']
-                updates = []
-                for state in states:
-                    temp = {}
-                    temp['status'] = state['status']
-                    temp['time'] = state['date'].replace(
-                        '-', '/') + ' στις ' + state['time']
-                    temp['space'] = state['place']
-                    temp['datetime'] = datetime.datetime.strptime(
-                        state['date']+' '+state['time'], '%d-%m-%Y %H:%M')
-                    updates.append(temp)
-                if len(updates) > 0:
-                    self.result = updates
+                if states != 'wrong number':
+                    updates = []
+                    for state in states:
+                        temp = {}
+                        temp['status'] = state['status']
+                        temp['time'] = state['date'].replace(
+                            '-', '/') + ' στις ' + state['time']
+                        temp['space'] = state['place']
+                        temp['datetime'] = datetime.datetime.strptime(
+                            state['date']+' '+state['time'], '%d-%m-%Y %H:%M')
+                        updates.append(temp)
+                    if len(updates) > 0:
+                        self.result = updates
+                    else:
+                        self.result = 'No data!'
                 else:
                     self.result = 'No data!'
             except:
