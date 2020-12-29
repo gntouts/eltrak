@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from apifunctions import getSpeedex
+from apifunctions import getACS, getSpeedex
 from fastapi.middleware.cors import CORSMiddleware
 from eltrac import speedex
 
@@ -28,4 +28,15 @@ def trackSpeedex(tracking):
     tracking (str): Tracking number
    """
     response = getSpeedex(tracking=tracking)
+    return response
+
+
+@ app.get("/v1/track/acs/{tracking}")
+def trackSpeedex(tracking):
+    """Tracks ACS vouchers 
+
+    Parameters:
+    tracking (str): Tracking number
+   """
+    response = getACS(tracking=tracking)
     return response

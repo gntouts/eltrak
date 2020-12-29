@@ -3,8 +3,6 @@ from bs4 import BeautifulSoup
 import datetime
 
 
-
-
 class SpeedexOrder:
     def __init__(self, tracking):
         self.tracking = str(tracking)
@@ -20,15 +18,15 @@ class SpeedexOrder:
             updates = soup.find_all(attrs={"class": "timeline-item"})
             final = None
 
-            final = soup.find(attrs={"class":"delivered-speedex"})
-            
-            if final!=None:
+            final = soup.find(attrs={"class": "delivered-speedex"})
+
+            if final != None:
                 tremp = final.find('p').text
                 timespace = final.find(
                     attrs={"class": "font-small-3"}).get_text()
                 time = timespace.split(',')[-1].strip()
                 space = timespace.split(',')[0].strip()
-                final = {'status': tremp, 'time': time, 'space': space, 'datetime':datetime.datetime.strptime(
+                final = {'status': tremp, 'time': time, 'space': space, 'datetime': datetime.datetime.strptime(
                     time, '%d/%m/%Y στις %H:%M')}
             self.final = final
             steps = []
@@ -48,8 +46,6 @@ class SpeedexOrder:
             if steps == []:
                 self.result = 'No data'
             else:
-                if self.final !=None:
+                if self.final != None:
                     steps.append(self.final)
                 self.result = steps
-                
-new = SpeedexOrder('700005668380')
