@@ -18,6 +18,5 @@ starlette==0.13.6
 toml
 urllib3==1.26.2
 uvicorn==0.13.2
-uvloop==0.14.0
 watchgod==0.6
 websockets==8.1
