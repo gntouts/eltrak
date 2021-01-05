@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from apifunctions import getACS, getElta, getSpeedex
+from apifunctions import getACS, getElta, getSpeedex, getGeniki
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="eltrak",
@@ -52,4 +52,15 @@ def trackElta(tracking):
     tracking (str): Tracking number
    """
     response = getElta(tracking=tracking)
+    return response
+
+
+@ app.get("/v1/track/geniki/{tracking}")
+def trackGeniki(tracking):
+    """Tracks Geniki Taxidromiki Courier vouchers 
+
+    Parameters:
+    tracking (str): Tracking number
+   """
+    response = getGeniki(tracking=tracking)
     return response
