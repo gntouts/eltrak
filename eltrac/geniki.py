@@ -20,7 +20,6 @@ class GenikiOrder:
             updates = container.find_all(attrs={"class": "tracking-checkpoint"})
             if len(updates) > 0:
                 steps = []
-                print(container, updates)
                 for update in updates:
                     temp = {}
                     temp['status'] = update.find(attrs={"class": "checkpoint-status"}).get_text().replace('Κατάσταση', '')
@@ -31,10 +30,6 @@ class GenikiOrder:
                     temp['time'] = date +' στις '+time
                     temp['datetime'] =  datetime.datetime.strptime(temp['time'], '%d/%m/%Y στις %H:%M')
                     steps.append(temp)
-            if steps == []:
-                self.result = 'No data'
-            else:
                 self.result = steps
-
-new = GenikiOrder(700005806876)
-new.track()
+            else:
+                self.result = 'No data'
