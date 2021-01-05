@@ -16,7 +16,12 @@ class GenikiOrder:
             self.result = 'Invalid tracking number'
         else:
             soup = BeautifulSoup(requests.get(self.url).text, "lxml")
+            print()
+            print(soup)
+            print()
             container = soup.find(attrs={"class": "tracking-result-content"})
+            print(container)
+            print(type(container))
             updates = container.find_all(attrs={"class": "tracking-checkpoint"})
             if len(updates) > 0:
                 steps = []
