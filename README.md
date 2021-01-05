@@ -2,9 +2,9 @@
 
 ### Introduction
 **eltrak** intends to become a free to use API to get shipping status for Greek courier services.
-<br>Currently, it **only** supports **ACS, Elta and Speedex Courier**. Due to lack of tracking numbers in a variety of states
+<br>Currently, it supports **ACS, Elta, Geniki Taxydromiki and Speedex Courier**. Due to lack of tracking numbers in a variety of states
 to test with, some errors are to be expected.
-<br>Geniki Tachidromiki will follow soon.
+<br>Other Greek courier services will follow, if I can find more tracking codes.
 
 ### Usage
 Simply, perform a GET request to the following URL:
@@ -48,3 +48,4 @@ For Ubuntu and Debian:
 
 ### Contributing
 Any help is welcome. Even if you just provide me with test tracking numbers.
+
