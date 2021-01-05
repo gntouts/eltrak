@@ -15,13 +15,10 @@ class GenikiOrder:
         if len(self.tracking) < 9:
             self.result = 'Invalid tracking number'
         else:
-            soup = BeautifulSoup(requests.get(self.url).text, "lxml")
-            print()
-            print(soup)
-            print()
+            proxies = {"http": "http://93.152.172.209:8080"}
+            res = requests.get(self.url, proxies=proxies)
+            soup = BeautifulSoup(res.text, "lxml")
             container = soup.find(attrs={"class": "tracking-result-content"})
-            print(container)
-            print(type(container))
             updates = container.find_all(attrs={"class": "tracking-checkpoint"})
             if len(updates) > 0:
                 steps = []
