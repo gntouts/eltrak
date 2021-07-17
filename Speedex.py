@@ -23,6 +23,7 @@ class SpeedexTracker(CourierTracker):
         '''Requests tracking information for the given tracking number'''
         results = BeautifulSoup(
             get(self.base_url+str(tracking_number)).text, "lxml")
+        self.last_tracked = tracking_number
         return results
 
     def parse_results(self, tracking_info: BeautifulSoup) -> dict:

@@ -25,6 +25,7 @@ class EltaTracker(CourierTracker):
         '''Requests tracking information for the given tracking number'''
         post_data = {'number': tracking_number}
         res = post(self.base_url, data=post_data).content
+        self.last_tracked = tracking_number
         return loads(res)['result']
 
     def parse_results(self, tracking_info):
