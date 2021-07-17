@@ -1,10 +1,13 @@
+from requests.models import Response
 from EltrakLib.TrackerFactory import get_factory, CourierNotSupportedError
 from EltrakLib.BaseClasses import InvalidTrackingNumber
 from EltrakLib.deprecation_support import DeprecatedTrackingResult
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from apifunctions import getACS, getElta, getSpeedex, getGeniki
 from enum import Enum
+
+# deprecated
+from EltrakLib.geniki import GenikiOrder
 
 app = FastAPI(title="eltrak",
               description="""**eltrak** intends to become a free to use API to get shipping status for Greek courier services.
@@ -70,7 +73,8 @@ def trackGeniki(tracking):
     Parameters:
     tracking (str): Tracking number
    """
-    response = getGeniki(tracking=tracking)
+    geniki_tracker = GenikiOrder(tracking=tracking)
+    response = geniki_tracker.get_result()
     return response
 
 
