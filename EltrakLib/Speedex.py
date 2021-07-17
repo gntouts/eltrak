@@ -1,4 +1,4 @@
-from BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult
+from EltrakLib.BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult
 from requests import get
 from string import digits
 from bs4 import BeautifulSoup
@@ -16,7 +16,7 @@ class SpeedexTracker(CourierTracker):
         new = ''.join([i for i in str(tracking_number) if i in self.allowed])
         if len(new) != 12:
             raise InvalidTrackingNumber(
-                'Speedex Tracking Numbers must contain 12 digits.')
+                message='Speedex Tracking Numbers must contain 12 digits.')
         return new
 
     def fetch_results(self, tracking_number: str) -> BeautifulSoup:

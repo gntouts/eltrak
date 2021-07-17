@@ -1,4 +1,4 @@
-from BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult
+from EltrakLib.BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult
 from requests import post
 from string import digits
 from bs4 import BeautifulSoup
@@ -20,7 +20,7 @@ class AcsTracker(CourierTracker):
                       if i in self.allowed])
         if len(new) != 10:
             raise InvalidTrackingNumber(
-                'ACS Tracking Numbers must contain 10 digits.')
+                message='ACS Tracking Numbers must contain 10 digits.')
         return new
 
     def fetch_results(self, tracking_number: str) -> dict:

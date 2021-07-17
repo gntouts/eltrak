@@ -1,5 +1,5 @@
 import string
-from BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult
+from EltrakLib.BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult
 from requests import post
 from json import loads
 from string import digits, ascii_letters
@@ -18,7 +18,7 @@ class EltaTracker(CourierTracker):
                       if i in self.allowed])
         if len(new) < 10:
             raise InvalidTrackingNumber(
-                'ELTA Tracking Numbers must contain at least 10 charactes.')
+                message='ELTA Tracking Numbers must contain at least 10 charactes.')
         return new
 
     def fetch_results(self, tracking_number: str) -> dict:

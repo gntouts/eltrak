@@ -7,9 +7,9 @@ from typing import List
 class InvalidTrackingNumber(ValueError):
     """Custom error raised when the input tracking number is invalid"""
 
-    def _init_(self, message):
+    def __init__(self, message):
         self.message = message
-        super().init()
+        super().__init__()
 
 
 @dataclass
@@ -37,8 +37,8 @@ class TrackingResult:
         if len(self.updates) > 0:
             self.found = True
             self.last = sorted(self.updates, key=lambda k: k.datetime)[-1]
-        if 'παραδόθηκε' in self.last.status.lower() or 'παραδοθηκε' in self.last.status.lower():
-            self.delivered = True
+            if 'παραδόθηκε' in self.last.status.lower() or 'παραδοθηκε' in self.last.status.lower():
+                self.delivered = True
 
 
 class CourierTracker(ABC):
