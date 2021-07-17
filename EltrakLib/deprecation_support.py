@@ -1,5 +1,5 @@
 from EltrakLib.BaseClasses import TrackingResult, TrackingCheckpoint
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List
 
 
