@@ -35,7 +35,7 @@ def general():
     return {"Project": "eltrak", "Repository": "https://github.com/gntouts/eltrak", "Documentation": "https://eltrak.herokuapp.com/documentation"}
 
 
-@app.get('/v2/track/{courier}/{tracking_number}', tags=["v1"])
+@app.get('/v2/track/{courier}/{tracking_number}', tags=["v2"])
 def track_courier(courier: CourierName, tracking_number: str):
     try:
         courier = str(courier).split('.')[-1]
