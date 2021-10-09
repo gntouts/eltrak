@@ -33,7 +33,7 @@ class CourierName(str, Enum):
 
 @ app.get("/")
 def general():
-    return {"Project": "eltrak", "Repository": "https://github.com/gntouts/eltrak", "Documentation": "https://eltrak.herokuapp.com/documentation"}
+    return {"Project": "eltrak", "Repository": "https://github.com/gntouts/eltrak", "Documentation": "/documentation"}
 
 
 @app.get('/v2/track-all/{tracking_number}', tags=["v2"])
