@@ -1,7 +1,7 @@
-from requests.models import Response
 from EltrakLib.TrackerFactory import get_factory, CourierNotSupportedError
 from EltrakLib.BaseClasses import InvalidTrackingNumber
 from EltrakLib.deprecation_support import DeprecatedTrackingResult
+from EltrakLib.GuessCourier import brute_force_track
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from enum import Enum
@@ -16,6 +16,7 @@ app = FastAPI(title="eltrak",
               <br> Any help is welcome. Even if you just provide me with test tracking numbers.""",
               version="1.0.4", docs_url="/documentation", redoc_url="/redoc"
               )
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -33,6 +34,26 @@ class CourierName(str, Enum):
 @ app.get("/")
 def general():
     return {"Project": "eltrak", "Repository": "https://github.com/gntouts/eltrak", "Documentation": "https://eltrak.herokuapp.com/documentation"}
+
+
+@app.get('/v2/track/all/{tracking_number}', tags=["v2"])
+def brute_force_track_courier(tracking_number: str):
+    try:
+        result = brute_force_track(tracking_number)
+        if result:
+            return result
+        raise HTTPException(
+            status_code=404,
+            detail="Couldn't find a tracking results",
+            headers={
+                "X-Error": "CourierNotSupportedError or InvalidTrackingNumber"},
+        )
+    except:
+        raise HTTPException(
+            status_code=500,
+            detail='Unknow error. Please provide more details for debugging.',
+            headers={"X-Error": "UnkownError"},
+        )
 
 
 @app.get('/v2/track/{courier}/{tracking_number}', tags=["v2"])

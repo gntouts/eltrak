@@ -59,3 +59,7 @@ class CourierTracker(ABC):
     @abstractmethod
     def track(self, tracking_number: str):
         '''Tracks the given tracking number'''
+
+    @abstractmethod
+    def track_silently(self, tracking_number: str):
+        '''Attempts to track the given tracking number without throwing exceptions in case of failure'''

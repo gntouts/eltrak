@@ -51,3 +51,13 @@ class EltaTracker(CourierTracker):
         tracking_number = self.sanitize(tracking_number)
         results = self.fetch_results(tracking_number)
         return self.parse_results(results)
+
+    def track_silently(self, tracking_number: str):
+        try:
+            tracking_number = self.sanitize(tracking_number)
+            results = self.fetch_results(tracking_number)
+            results = self.parse_results(results)
+            if results.found:
+                return results
+        except:
+            return None
