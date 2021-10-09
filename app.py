@@ -36,7 +36,7 @@ def general():
     return {"Project": "eltrak", "Repository": "https://github.com/gntouts/eltrak", "Documentation": "https://eltrak.herokuapp.com/documentation"}
 
 
-@app.get('/v2/track/all/{tracking_number}', tags=["v2"])
+@app.get('/v2/track-all/{tracking_number}', tags=["v2"])
 def brute_force_track_courier(tracking_number: str):
     try:
         result = brute_force_track(tracking_number)
