@@ -3,7 +3,8 @@ import concurrent.futures
 
 
 def brute_force_track(tracking_number: str):
-    trackers = [get_factory(courier) for courier in ['speedex', 'acs', 'elta']]
+    trackers = [get_factory(courier).get_tracker()
+                for courier in ['speedex', 'acs', 'elta']]
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(trackers)) as executor:
         future_scan_results = {executor.submit(

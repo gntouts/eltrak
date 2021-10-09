@@ -42,6 +42,8 @@ def brute_force_track_courier(tracking_number: str):
         result = brute_force_track(tracking_number)
         if result:
             return result
+        raise ValueError
+    except ValueError:
         raise HTTPException(
             status_code=404,
             detail="Couldn't find a tracking results",
