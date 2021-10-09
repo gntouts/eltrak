@@ -56,8 +56,6 @@ For Ubuntu and Debian:
 
 #### Deploy to Docker
 
-In order to deploy to Docker:
-
 1. Clone the repository and change directory:
 ```
 git clone https://github.com/gntouts/eltrak.git
