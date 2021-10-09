@@ -21,7 +21,14 @@ res = requests.get('https://eltrak.herokuapp.com/v1/track/speedex/010011110101')
 print(res.json())
 ```
 
+Or if you don't know which courier has issued the tracking number you can use the following URL:
+
+`https://eltrak.herokuapp.com/v2/track-all/[TRACKINGNUMBER]`
+
+
 ### Installation
+
+#### Deploy locally
 
 In order to run the server locally (or anywhere else) run the following commands:
 
@@ -46,6 +53,26 @@ For Ubuntu and Debian:
 3. Activate your environment (if you used one) and run the server
 
 `uvicorn main:app --port=8888`
+
+#### Deploy to Docker
+
+1. Clone the repository and change directory:
+```
+git clone https://github.com/gntouts/eltrak.git
+cd eltrak
+```
+
+2. Build the Docker image from the Dockerfile
+
+`docker build -t eltrak .`
+
+3. Start the container
+
+`docker run -dp 8888:8888 eltrak`
+
+#### Other methods
+
+You can deploy to Heroku using the Procfile and runtime.txt. It is also possible to deploy to Caprover using the captain-definition and the dockerfile.
 
 ### Contributing
 
