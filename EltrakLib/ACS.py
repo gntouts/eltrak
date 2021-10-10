@@ -36,10 +36,12 @@ class AcsTracker(CourierTracker):
                     status = checkpoint['description'] + ' - ' + checkpoint['info']
             except:
                 status = checkpoint['description'] 
-            time = checkpoint['controlPointDate'].split('.')[0]
+            timestamp = checkpoint['controlPointDate'].split('.')[0]
+            time = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S')
+            time = time.strftime('%d/%m/%Y στις %H:%M')
             space = checkpoint['controlPoint']
             return TrackingCheckpoint(status, time, space,
-                format_timestamp(datetime.strptime(time, '%Y-%m-%dT%H:%M:%S')))
+                format_timestamp(datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S')))
 
         updates = [parse_checkpoint(update) for update in tracking_info['statusHistory']]
         last = sorted(updates, key=lambda k: k.datetime)[0]
