@@ -1,5 +1,5 @@
 from EltrakLib.BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult, format_timestamp
-from requests import post
+from requests import post, get
 from string import digits
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -8,10 +8,7 @@ from datetime import datetime
 class AcsTracker(CourierTracker):
     """Tracker object for Speedex tracking numbers`"""
     courier = 'acs'
-    base_url = 'https://www.acscourier.net/el/track-and-trace?p_p_id=ACSCustomersAreaTrackTrace_WAR_ACSCustomersAreaportlet&\
-                p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-4&p_p_col_count=1&\
-                _ACSCustomersAreaTrackTrace_WAR_ACSCustomersAreaportlet_stop_mobile=yes\
-                &_ACSCustomersAreaTrackTrace_WAR_ACSCustomersAreaportlet_jspPage=TrackTraceController&stop_mobile=yes'
+    base_url = 'https://api.acscourier.net/api/parcels/search/'
     allowed = digits
 
     def sanitize(self, tracking_number: str) -> str:
@@ -25,37 +22,33 @@ class AcsTracker(CourierTracker):
 
     def fetch_results(self, tracking_number: str) -> dict:
         '''Requests tracking information for the given tracking number'''
-        post_data = {'generalCode': tracking_number}
-        results = BeautifulSoup(
-            post(self.base_url, data=post_data).content, "lxml")
-        self.last_tracked = tracking_number
-        return results
+        results = get(self.base_url+str(tracking_number))
+        return results.json()['items'][0]
 
     def parse_results(self, tracking_info):
         '''Parses the results into useable information'''
 
         def parse_checkpoint(checkpoint):
-            checkpoint = checkpoint['cell']
-            status = checkpoint[1]
-            time = checkpoint[0].split(' ')[0]\
-                + ' στις ' + checkpoint[0].split(' ')[-1][:-3]
-            space = checkpoint[2]
+            try: 
+                if checkpoint['info'] == ' ':
+                    status = checkpoint['description']
+                else:
+                    status = checkpoint['description'] + ' - ' + checkpoint['info']
+            except:
+                status = checkpoint['description'] 
+            time = checkpoint['controlPointDate'].split('.')[0]
+            space = checkpoint['controlPoint']
             return TrackingCheckpoint(status, time, space,
-                format_timestamp(datetime.strptime(checkpoint[0][:-3], '%d/%m/%Y %H:%M')))
+                format_timestamp(datetime.strptime(time, '%Y-%m-%dT%H:%M:%S')))
 
-        scripts = [str(i) for i in tracking_info.find_all(
-            'script') if ('grid.jqGrid' in i and 'addRowData' in i)]
-        script = scripts[0] if len(scripts) == 1 else None
-        if script:
-            checkpoint_obj = str(script).split('_r={rows:')[-1].split(';')[0]
-            checkpoint_obj = checkpoint_obj.replace('id', '"id"').replace(
-                'cell', '"cell"')[:-1]
-            updates = eval(checkpoint_obj)
-            updates = [parse_checkpoint(checkpoint)
-                       for checkpoint in updates]
-            if len(updates > 0):
-                return TrackingResult('ACS', self.last_tracked, updates, False)
-        return TrackingResult('ACS', self.last_tracked, [], False)
+        updates = [parse_checkpoint(update) for update in tracking_info['statusHistory']]
+        last = sorted(updates, key=lambda k: k.datetime)[0]
+        return TrackingResult(
+            courier='ACS',
+            tracking_number=tracking_info['trackingNumber'],
+            updates=updates,
+            delivered=tracking_info['isDelivered']
+            )
 
     def track(self, tracking_number: str):
         tracking_number = self.sanitize(tracking_number)
