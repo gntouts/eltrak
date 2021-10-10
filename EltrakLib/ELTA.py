@@ -1,5 +1,5 @@
 import string
-from EltrakLib.BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult
+from EltrakLib.BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult, format_timestamp
 from requests import post
 from json import loads
 from string import digits, ascii_letters
@@ -36,8 +36,8 @@ class EltaTracker(CourierTracker):
             time = checkpoint['date'].replace('-', '/') \
                 + ' στις ' + checkpoint['time']
             space = checkpoint['place']
-            return TrackingCheckpoint(status, time, space, datetime.strptime(
-                checkpoint['date']+' '+checkpoint['time'], '%d-%m-%Y %H:%M'))
+            return TrackingCheckpoint(status, time, space, format_timestamp(datetime.strptime(
+                checkpoint['date']+' '+checkpoint['time'], '%d-%m-%Y %H:%M')))
 
         for key in tracking_info.keys():
             tracking_number = key

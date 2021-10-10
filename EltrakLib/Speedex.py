@@ -1,4 +1,4 @@
-from EltrakLib.BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult
+from EltrakLib.BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult, format_timestamp
 from requests import get
 from string import digits
 from bs4 import BeautifulSoup
@@ -37,7 +37,7 @@ class SpeedexTracker(CourierTracker):
             time = timespace.split(',')[-1].strip()
             space = timespace.split(',')[0].strip()
             return TrackingCheckpoint(status, time, space,
-                                      datetime.strptime(time, '%d/%m/%Y στις %H:%M'))
+                                      format_timestamp(datetime.strptime(time, '%d/%m/%Y στις %H:%M')))
 
         def parse_delivered_checkpoint(checkpoint):
             if checkpoint:

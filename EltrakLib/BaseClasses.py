@@ -4,6 +4,11 @@ from datetime import datetime
 from typing import List
 
 
+def format_timestamp(input_date: datetime):
+    temp = input_date.timestamp()
+    temp = str(temp).split('.')[0]
+    return temp
+
 class InvalidTrackingNumber(ValueError):
     """Custom error raised when the input tracking number is invalid"""
 
@@ -18,7 +23,7 @@ class TrackingCheckpoint:
     status: str
     time: str
     space: str
-    datetime: datetime
+    datetime: str
 
 
 @dataclass

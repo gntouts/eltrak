@@ -1,4 +1,4 @@
-from EltrakLib.BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult
+from EltrakLib.BaseClasses import InvalidTrackingNumber, CourierTracker, TrackingCheckpoint, TrackingResult, format_timestamp
 from requests import post
 from string import digits
 from bs4 import BeautifulSoup
@@ -41,7 +41,7 @@ class AcsTracker(CourierTracker):
                 + ' στις ' + checkpoint[0].split(' ')[-1][:-3]
             space = checkpoint[2]
             return TrackingCheckpoint(status, time, space,
-                                      datetime.strptime(checkpoint[0][:-3], '%d/%m/%Y %H:%M'))
+                format_timestamp(datetime.strptime(checkpoint[0][:-3], '%d/%m/%Y %H:%M')))
 
         scripts = [str(i) for i in tracking_info.find_all(
             'script') if ('grid.jqGrid' in i and 'addRowData' in i)]
