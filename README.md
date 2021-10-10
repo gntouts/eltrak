@@ -68,7 +68,7 @@ cd eltrak
 
 3. Start the container
 
-`docker run -dp 8888:8888 eltrak`
+`docker run -dp 8888:80 eltrak`
 
 #### Other methods
 
