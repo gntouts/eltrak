@@ -47,7 +47,7 @@ class SpeedexTracker(CourierTracker):
                 time = timespace.split(',')[-1].strip()
                 space = timespace.split(',')[0].strip()
                 return TrackingCheckpoint(status, time, space,
-                                          datetime.strptime(time, '%d/%m/%Y στις %H:%M'))
+                                          format_timestamp(datetime.strptime(time, '%d/%m/%Y στις %H:%M')))
 
         updates = tracking_info.find_all(attrs={"class": "timeline-item"})
         updates = [parse_checkpoint(update) for update in updates]
