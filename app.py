@@ -60,35 +60,30 @@ def brute_force_track_courier(tracking_number: str):
 
 @app.get('/v2/track/{courier}/{tracking_number}', tags=["v2"])
 def track_courier(courier: CourierName, tracking_number: str):
-    courier = str(courier).split('.')[-1]
-    factory = get_factory(courier)
-    tracker = factory.get_tracker()
-    result = tracker.track(tracking_number)
-    return result
-    # try:
-    #     courier = str(courier).split('.')[-1]
-    #     factory = get_factory(courier)
-    #     tracker = factory.get_tracker()
-    #     result = tracker.track(tracking_number)
-    #     return result
-    # except InvalidTrackingNumber as e:
-    #     raise HTTPException(
-    #         status_code=404,
-    #         detail=e.message,
-    #         headers={"X-Error": "InvalidTrackingNumber"},
-    #     )
-    # except CourierNotSupportedError as e:
-    #     raise HTTPException(
-    #         status_code=404,
-    #         detail=e.message,
-    #         headers={"X-Error": "CourierNotSupportedError"},
-    #     )
-    # except:
-    #     raise HTTPException(
-    #         status_code=500,
-    #         detail='Unknow error. Please provide more details for debugging.',
-    #         headers={"X-Error": "UnkownError"},
-    #     )
+    try:
+        courier = str(courier).split('.')[-1]
+        factory = get_factory(courier)
+        tracker = factory.get_tracker()
+        result = tracker.track(tracking_number)
+        return result
+    except InvalidTrackingNumber as e:
+        raise HTTPException(
+            status_code=404,
+            detail=e.message,
+            headers={"X-Error": "InvalidTrackingNumber"},
+        )
+    except CourierNotSupportedError as e:
+        raise HTTPException(
+            status_code=404,
+            detail=e.message,
+            headers={"X-Error": "CourierNotSupportedError"},
+        )
+    except:
+        raise HTTPException(
+            status_code=500,
+            detail='Unknow error. Please provide more details for debugging.',
+            headers={"X-Error": "UnkownError"},
+        )
 
 
 # ------------V1-------------
