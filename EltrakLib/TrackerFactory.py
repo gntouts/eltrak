@@ -1,6 +1,7 @@
 from EltrakLib.ACS import AcsTracker
 from EltrakLib.ELTA import EltaTracker
 from EltrakLib.Speedex import SpeedexTracker
+from EltrakLib.Skroutz import SkroutzTracker
 from abc import ABC, abstractclassmethod
 
 
@@ -31,11 +32,17 @@ class SpeedexFactory(TrackerFactory):
         return SpeedexTracker()
 
 
+class SkroutzFactory(TrackerFactory):
+    def get_tracker(self):
+        return SkroutzTracker()
+
+
 def get_factory(name):
     factories = {
         'acs': AcsFactory(),
         'speedex': SpeedexFactory(),
-        'elta': EltaFactory()
+        'elta': EltaFactory(),
+        'skroutz': SkroutzFactory()
     }
     sanitized_name = str(name).lower()
     if sanitized_name in factories:

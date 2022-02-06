@@ -29,6 +29,7 @@ class CourierName(str, Enum):
     speedex = "speedex"
     acs = "acs"
     elta = "elta"
+    skroutz = "skroutz"
 
 
 @ app.get("/")
