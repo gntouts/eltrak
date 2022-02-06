@@ -11,7 +11,7 @@ class SkroutzTracker(CourierTracker):
     allowed = digits + ascii_uppercase
 
     def sanitize(self, tracking_number: str) -> str:
-        '''Attempts to sanitize the given tracking number according to Skroutz format'''
+        '''Attempts to sanitize the given tracking number according to Skroutz Last Mile format'''
         new = ''.join([i for i in str(tracking_number)
                       if i in self.allowed])
         if len(new) != 13:
@@ -39,7 +39,7 @@ class SkroutzTracker(CourierTracker):
 
         updates = [parse_checkpoint(update) for update in tracking_info['trackingDetails']]
         return TrackingResult(
-            courier='ACS',
+            courier='Skroutz Last Mile',
             tracking_number=tracking_number,
             updates=updates,
             delivered=tracking_info['deliveredAt'] != None
