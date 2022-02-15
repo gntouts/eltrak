@@ -48,7 +48,7 @@ def brute_force_track_courier(tracking_number: str):
     except ValueError:
         raise HTTPException(
             status_code=404,
-            detail="Couldn't find a tracking results",
+            detail="Couldn't find a tracking result",
             headers={
                 "X-Error": "CourierNotSupportedError or InvalidTrackingNumber"},
         )
