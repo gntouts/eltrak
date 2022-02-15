@@ -2,6 +2,7 @@ from EltrakLib.ACS import AcsTracker
 from EltrakLib.ELTA import EltaTracker
 from EltrakLib.Speedex import SpeedexTracker
 from EltrakLib.Skroutz import SkroutzTracker
+from EltrakLib.EasyMail import EasyMailTracker
 from abc import ABC, abstractclassmethod
 
 
@@ -37,12 +38,18 @@ class SkroutzFactory(TrackerFactory):
         return SkroutzTracker()
 
 
+class EasyMailFactory(TrackerFactory):
+    def get_tracker(self):
+        return EasyMailTracker()
+
+
 def get_factory(name):
     factories = {
         'acs': AcsFactory(),
         'speedex': SpeedexFactory(),
         'elta': EltaFactory(),
-        'skroutz': SkroutzFactory()
+        'skroutz': SkroutzFactory(),
+        'easymail': EasyMailFactory()
     }
     sanitized_name = str(name).lower()
     if sanitized_name in factories:

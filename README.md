@@ -3,7 +3,7 @@
 ### Introduction
 
 **eltrak** intends to become a free to use API to get shipping status for Greek courier services.
-<br>Currently, it supports **ACS, Elta, Geniki Taxydromiki, Speedex Courier and Skroutz Last Mile**. Due to lack of tracking numbers in a variety of states
+<br>Currently, it supports **ACS, Elta, Geniki Taxydromiki, Speedex Courier, Skroutz Last Mile and EasyMail Courier**. Due to lack of tracking numbers in a variety of states
 to test with, some errors are to be expected.<br>**Geniki Taxidromiki is causing Internal Server Errors due to Amazon Cloudfront blocking access from Heroku dynos. Trying to find a proxy solution.**
 <br>Other Greek courier services will follow, if I can find more tracking codes.
 
@@ -52,7 +52,7 @@ For Ubuntu and Debian:
 
 3. Activate your environment (if you used one) and run the server
 
-`uvicorn main:app --port=8888`
+`uvicorn app:app --port=8888`
 
 #### Deploy to Docker
 
