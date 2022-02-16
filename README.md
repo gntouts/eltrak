@@ -89,13 +89,15 @@ In order to run the server locally (or anywhere else) run the following commands
    ```bash
    heroku login
    heroku create eltrak
+   ```
+3. Set your deployment method:
+ 
+   ```bash
    heroku container:login
    heroku stack:set container -a eltrak
    heroku git:remote -a eltrak
-   git push heroku main
    ```
-
-3. Build and push your app to Heroku
+5. Build and push your app to Heroku
 
    ```bash
    git push heroku main
