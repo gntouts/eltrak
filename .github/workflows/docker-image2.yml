@@ -26,4 +26,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:$(date +%s)
     - name: Docker Push
-      run: docker push ${{ env.IMAGE_NAME }}
+      run: docker push ${{ env.IMAGE_NAME }}$(date +%s)
