@@ -1,0 +1,20 @@
+name: Deploy to Caprover
+
+on:
+  workflow_run:
+    workflows: ["Docker Image CI Release"]
+    types:
+      - completed
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+    - name: CapRover App Deploy
+      uses: floms/action-caprover@v1
+      with:
+        host: '${{ secrets.CARPOVER_URL }}'
+        password: '${{ secrets.CAPROVER_PASSWORD }}'
+        app: 'my-app'
+        image: 'gntouts/eltrak:latest'
+
+  
