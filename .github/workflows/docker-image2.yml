@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: ${{ github.repository }}
-  USER: ${{ github.repository_owner }}
+  IMAGE_NAME: gntouts/eltrak
+  USER: gntouts
   
 jobs:
 
