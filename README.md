@@ -76,9 +76,30 @@ In order to run the server locally (or anywhere else) run the following commands
 
    `docker run -dp 8888:80 eltrak`
 
+#### Deploy to Heroku
+
+1. Clone the repository and change directory:
+
+   ```bash
+   git clone https://github.com/gntouts/eltrak.git
+   cd eltrak
+
+2. Create a new app:
+
+   ```bash
+   heroku create eltrak
+   heroku stack:set container -a eltrak
+   ```
+
+3. Build and push your app to Heroku
+
+   ```bash
+   git push heroku main
+   ```
+
 #### Other methods
 
-You can deploy to Heroku using the Procfile and runtime.txt. It is also possible to deploy to Caprover using the captain-definition and the dockerfile.
+It is also possible to deploy to Caprover using the captain-definition and the dockerfile.
 
 ### Contributing
 
