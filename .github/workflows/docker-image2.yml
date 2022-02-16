@@ -6,6 +6,7 @@ on:
 env:
   IMAGE_NAME: gntouts/eltrak
   USER: gntouts
+  TAG: $(date +%s)
   
 jobs:
 
@@ -24,6 +25,6 @@ jobs:
         echo ${{ env.IMAGE_NAME }}
         echo ${{ env.USER }}
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:$(date +%s)
+      run: docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:${{ env.TAG }}
     - name: Docker Push
-      run: docker push ${{ env.IMAGE_NAME }}:$(date +%s)
+      run: docker push ${{ env.IMAGE_NAME }}:${{ env.TAG }}
