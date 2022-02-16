@@ -88,7 +88,7 @@ In order to run the server locally (or anywhere else) run the following commands
 
    ```bash
    heroku login
-   heroku create eltrak
+   heroku apps:create --region eu eltrak
    ```
 3. Set your deployment method:
  
