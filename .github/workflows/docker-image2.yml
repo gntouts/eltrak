@@ -5,6 +5,7 @@ on:
 
 env:
   IMAGE_NAME: ${{ github.repository }}
+  USER: ${{ github.repository_owner }}
   
 jobs:
 
@@ -18,7 +19,10 @@ jobs:
       env:
         DOCKER_USER: ${{secrets.HUB_NAME }}
         DOCKER_PASSWORD: ${{secrets.HUB_PWD }}
-      run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        echo ${{ env.IMAGE_NAME }}
+        echo ${{ env.USER }}
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:$(date +%s)
     - name: Docker Push
