@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: CapRover App Deploy
-      uses: floms/action-caprover@v1
+      uses: anaganisk/caprover-action@v1
       with:
-        host: '${{ secrets.CARPOVER_URL }}'
+        server: '${{ secrets.CARPOVER_URL }}'
         password: '${{ secrets.CAPROVER_PASSWORD }}'
         app: 'eltrak'
-        image: 'gntouts/eltrak:latest'
+        docker: 'gntouts/eltrak:latest'
 
   
