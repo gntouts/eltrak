@@ -46,15 +46,18 @@ In order to run the server locally (or anywhere else) run the following commands
 
    For Windows:
 
-   `pip install -r windows-requirements.txt`
+   `pip install -r src/req/windows-requirements.txt`
 
    For Ubuntu and Debian:
 
-   `pip install -r requirements.txt`
+   `pip install -r src/req/requirements.txt`
 
 3. Activate your environment (if you used one) and run the server
 
-   `uvicorn app:app --port=8888`
+   ```bash
+   cd src
+   uvicorn app:app --port=8888
+   ```
 
 #### Deploy to Docker
 
