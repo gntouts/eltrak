@@ -52,10 +52,10 @@ def brute_force_track_courier(tracking_number: str):
             headers={
                 "X-Error": "CourierNotSupportedError or InvalidTrackingNumber"},
         )
-    except:
+    except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail='Unknow error. Please provide more details for debugging.',
+            detail=f'Unknow error: {str(e)}. Please provide more details for debugging.',
             headers={"X-Error": "UnkownError"},
         )
 
@@ -80,10 +80,10 @@ def track_courier(courier: CourierName, tracking_number: str):
             detail=e.message,
             headers={"X-Error": "CourierNotSupportedError"},
         )
-    except:
+    except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail='Unknow error. Please provide more details for debugging.',
+            detail=f'Unknow error: {str(e)}. Please provide more details for debugging.',
             headers={"X-Error": "UnkownError"},
         )
 
