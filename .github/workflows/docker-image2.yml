@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: ${{secrets.HUB_NAME }}/eltrak
-  USER: ${{secrets.HUB_NAME }}
+  IMAGE_NAME: ${{github.repository }}
+  USER: gntouts
   
 jobs:
 
