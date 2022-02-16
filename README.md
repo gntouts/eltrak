@@ -30,6 +30,15 @@ Or if you don't know which courier has issued the tracking number you can use th
 
 ### Installation
 
+#### Deploy to Docker - pull from Docker Hub
+
+1. Pull the Docker image and start the container:
+
+   ```bash
+   docker pull gntouts/eltrak:latest
+   docker run -d -p 8888:80 eltrak:latest
+   ```
+
 #### Deploy locally
 
 In order to run the server locally (or anywhere else) run the following commands:
@@ -59,7 +68,7 @@ In order to run the server locally (or anywhere else) run the following commands
    uvicorn app:app --port=8888
    ```
 
-#### Deploy to Docker
+#### Deploy to Docker - build it yourself
 
 1. Clone the repository and change directory:
 
