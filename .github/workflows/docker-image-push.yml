@@ -1,12 +1,13 @@
-name: Docker Image CI2
+name: Docker Image CI Push
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ main ]
 
 env:
   IMAGE_NAME: gntouts/eltrak
   USER: gntouts
-  TAG: latest
+  TAG: roll
   
 jobs:
 
