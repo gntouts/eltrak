@@ -2,7 +2,7 @@ name: Deploy to Caprover
 
 on:
   workflow_run:
-    workflows: ["Docker Image CI Release"]
+    workflows: ["Docker Image CI Push"]
     types:
       - completed
 jobs:
