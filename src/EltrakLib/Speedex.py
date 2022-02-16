@@ -22,46 +22,31 @@ class SpeedexTracker(CourierTracker):
     def fetch_results(self, tracking_number: str) -> BeautifulSoup:
         '''Requests tracking information for the given tracking number'''
         results = BeautifulSoup(
-            get(self.base_url+str(tracking_number)).text, "lxml")
+            get(self.base_url+str(tracking_number)).text, features="html.parser")
         self.last_tracked = tracking_number
         return results
 
     def parse_results(self, tracking_info: BeautifulSoup) -> dict:
         '''Parses the results into useable  information'''
 
-        def parse_checkpoint(checkpoint):
-            status = checkpoint.find(
-                'h4').get_text().replace('  ', ' ')
-            timespace = checkpoint.find(
-                attrs={"class": "font-small-3"}).get_text()
-            time = timespace.split(',')[-1].strip()
-            space = timespace.split(',')[0].strip()
-            return TrackingCheckpoint(status, time, space,
-                                      format_timestamp(datetime.strptime(time, '%d/%m/%Y στις %H:%M')))
+        def parse_checkpoint(checkpoint: BeautifulSoup):
+            items = checkpoint.find("span", {"class": "font-small-3"}).contents[0].split(", ")
+            timestamp = datetime.strptime(items[1], "%d/%m/%Y στις %H:%M")
+            date = items[1]
+            location = items[0]
+            description = checkpoint.find("h4", {"class": "card-title"}).contents[0].text
 
-        def parse_delivered_checkpoint(checkpoint):
-            if checkpoint:
-                status = checkpoint.find('p').text
-                timespace = checkpoint.find(
-                    attrs={"class": "font-small-3"}).get_text()
-                time = timespace.split(',')[-1].strip()
-                space = timespace.split(',')[0].strip()
-                return TrackingCheckpoint(status, time, space,
-                                          format_timestamp(datetime.strptime(time, '%d/%m/%Y στις %H:%M')))
+            return TrackingCheckpoint(description, date, location, format_timestamp(timestamp))
 
-        updates = tracking_info.find_all(attrs={"class": "timeline-item"})
-        updates = [parse_checkpoint(update) for update in updates]
-        delivered = tracking_info.find(attrs={"class": "delivered-speedex"})
-        delivered = parse_delivered_checkpoint(delivered)
-        tracking_number = tracking_info.find(
-            attrs={"id": "TxtConsignmentNumber"}).get('value')
-        delivered_flag = False
-        if delivered:
-            delivered_flag = True
-            updates.append(delivered)
-        found = True if len(updates) > 0 else False
-        return TrackingResult(
-            'Speedex', tracking_number, updates, delivered_flag)
+        tracking_number = tracking_info.find(attrs={"id": "TxtConsignmentNumber"}).get('value')
+
+        if tracking_info.find("div", {"class": "alert-warning"}):
+            return TrackingResult('Speedex', tracking_number, [], False)
+
+        package = tracking_info.find_all("div", {"class": "timeline-card"})
+        delivered = package[-1].find("h4", {"class": "card-title"}).contents[0].text == "Η ΑΠΟΣΤΟΛΗ ΠΑΡΑΔΟΘΗΚΕ"
+        updates = [parse_checkpoint(update) for update in package]
+        return TrackingResult('Speedex', tracking_number, updates, delivered)
 
     def track(self, tracking_number: str):
         tracking_number = self.sanitize(tracking_number)
