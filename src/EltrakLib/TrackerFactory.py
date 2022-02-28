@@ -3,6 +3,8 @@ from EltrakLib.ELTA import EltaTracker
 from EltrakLib.Speedex import SpeedexTracker
 from EltrakLib.Skroutz import SkroutzTracker
 from EltrakLib.EasyMail import EasyMailTracker
+from EltrakLib.Geniki import GenikiTracker
+
 from abc import ABC, abstractclassmethod
 
 
@@ -43,13 +45,19 @@ class EasyMailFactory(TrackerFactory):
         return EasyMailTracker()
 
 
+class GenikiFactory(TrackerFactory):
+    def get_tracker(self):
+        return GenikiTracker()()
+
+
 def get_factory(name):
     factories = {
         'acs': AcsFactory(),
         'speedex': SpeedexFactory(),
         'elta': EltaFactory(),
         'skroutz': SkroutzFactory(),
-        'easymail': EasyMailFactory()
+        'easymail': EasyMailFactory(),
+        'geniki': GenikiFactory()
     }
     sanitized_name = str(name).lower()
     if sanitized_name in factories:
