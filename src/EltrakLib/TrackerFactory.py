@@ -47,7 +47,7 @@ class EasyMailFactory(TrackerFactory):
 
 class GenikiFactory(TrackerFactory):
     def get_tracker(self):
-        return GenikiTracker()()
+        return GenikiTracker()
 
 
 def get_factory(name):
