@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 class EltaTracker(CourierTracker):
-    """Tracker object for Speedex tracking numbers`"""
+    """Tracker object for ELTA tracking numbers`"""
     courier = 'elta courier'
     base_url = 'https://www.elta-courier.gr/track.php'
     allowed = digits + ascii_letters
