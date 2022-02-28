@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from enum import Enum
 
 # deprecated
-from EltrakLib.geniki import GenikiOrder
+from EltrakLib.DeprecGeniki import GenikiOrder
 
 app = FastAPI(title="eltrak",
               description="""**eltrak** intends to become a free to use API to get shipping status for Greek courier services.
