@@ -11,7 +11,9 @@ from EltrakLib.geniki import GenikiOrder
 
 app = FastAPI(title="eltrak",
               description="""**eltrak** intends to become a free to use API to get shipping status for Greek courier services.
-              <br>Currently, it **only** supports **ACS, Elta Courier and Speedex Courier**. Due to lack of tracking numbers in a variety of states
+              <br>Currently, it **only** supports **ACS, Elta Courier, Speedex Courier, Skroutz Last Mile and EasyMail**.
+              Geniki Tachidromiki is also provided, but it has not been tested at all and has caused issues when deployed in
+              infrastracture located outside of Greece. Due to lack of tracking numbers in a variety of states
               to test with, some errors are to be expected.
               <br> Any help is welcome. Even if you just provide me with test tracking numbers.""",
               version="1.0.4", docs_url="/documentation", redoc_url="/redoc"
@@ -31,6 +33,7 @@ class CourierName(str, Enum):
     elta = "elta"
     skroutz = "skroutz"
     easymail = "easymail"
+    geniki = "geniki"
 
 
 @ app.get("/")
