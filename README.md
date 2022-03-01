@@ -1,5 +1,7 @@
 # eltrak
 
+This branch is kept to allow the use deprecated v1 API endpoint. It will not be maintained. I suggest moving to the v2 endpoint, which is much better.
+
 ## Introduction
 
 **eltrak** intends to become a free to use API to get shipping status for Greek courier services.
