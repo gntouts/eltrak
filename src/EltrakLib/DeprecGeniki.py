@@ -1,3 +1,7 @@
+# DEPRECATED GENIKI IMPLEMENTATION
+# WILL BE DELETED IN NEXT RELEASE
+
+
 import requests
 from bs4 import BeautifulSoup
 import datetime

@@ -41,15 +41,17 @@ class GenikiTracker(CourierTracker):
             date = date + ' στις ' + time
             timestamp = datetime.strptime(date, '%d/%m/%Y στις %H:%M')
 
-            location = update.find(
-                attrs={"class": "checkpoint-location"}).get_text().replace('Τοποθεσία', '')
+            location = update.find(attrs={"class": "checkpoint-location"})
+            if location is not None:
+                location = location.get_text().replace('Τοποθεσία', '')
 
             return TrackingCheckpoint(description, date, location, format_timestamp(timestamp))
 
         updates = tracking_info.find(
             attrs={"class": "tracking-result-content"}).find_all(attrs={"class": "tracking-checkpoint"})
         tracking_number = self.last_tracked
-        delivered = False  # Delivered status detection needs to be implemented
+        delivered = updates[-1].find("div",
+                                     {"class": "tracking-location"}) == None
         updates = [parse_checkpoint(update) for update in updates]
         return TrackingResult('Geniki', tracking_number, updates, delivered)
 
