@@ -25,23 +25,24 @@ class GenikiTracker(CourierTracker):
         results = BeautifulSoup(
             get(self.base_url+str(tracking_number)).text, features="html.parser")
         self.last_tracked = tracking_number
+        return results
 
     def parse_results(self, tracking_info: BeautifulSoup) -> dict:
         '''Parses the results into useable information'''
 
         def parse_checkpoint(checkpoint: BeautifulSoup):
-            description = update.find(
+            description = checkpoint.find(
                 attrs={"class": "checkpoint-status"}).get_text().replace('Κατάσταση', '')
 
-            date = update.find(
+            date = checkpoint.find(
                 attrs={"class": "checkpoint-date"}).get_text().replace('Ημερομηνία', '')
             date = date.split(',')[-1].strip()
-            dtime = update.find(
+            dtime = checkpoint.find(
                 attrs={"class": "checkpoint-time"}).get_text().replace('Ώρα', '')
-            date = date + ' στις ' + time
+            date = date + ' στις ' + dtime
             timestamp = datetime.strptime(date, '%d/%m/%Y στις %H:%M')
 
-            location = update.find(attrs={"class": "checkpoint-location"})
+            location = checkpoint.find(attrs={"class": "checkpoint-location"})
             if location is not None:
                 location = location.get_text().replace('Τοποθεσία', '')
             else:
@@ -52,8 +53,7 @@ class GenikiTracker(CourierTracker):
         updates = tracking_info.find(
             attrs={"class": "tracking-result-content"}).find_all(attrs={"class": "tracking-checkpoint"})
         tracking_number = self.last_tracked
-        delivered = updates[-1].find("div",
-                                     {"class": "tracking-location"}) == None
+        delivered = updates[-1].find(attrs={"class": "checkpoint-location"}) == None
         updates = [parse_checkpoint(update) for update in updates]
         return TrackingResult('Geniki', tracking_number, updates, delivered)
 
