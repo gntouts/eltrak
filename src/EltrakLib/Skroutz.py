@@ -31,7 +31,10 @@ class SkroutzTracker(CourierTracker):
             timestamp = checkpoint['createdAt'][:-5]
             tdate = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S')
             date = tdate.strftime('%d/%m/%Y στις %H:%M')
-            location = checkpoint['driver']['city'] if checkpoint['driver'] else "Unknown"
+            try:
+                location = checkpoint['driver']['city']
+            except KeyError:
+                location = "Unknown"
             status = checkpoint['description']
 
             return TrackingCheckpoint(status, date, location,
