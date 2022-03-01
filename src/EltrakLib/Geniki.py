@@ -44,6 +44,8 @@ class GenikiTracker(CourierTracker):
             location = update.find(attrs={"class": "checkpoint-location"})
             if location is not None:
                 location = location.get_text().replace('Τοποθεσία', '')
+            else:
+                location = ""
 
             return TrackingCheckpoint(description, date, location, format_timestamp(timestamp))
 
