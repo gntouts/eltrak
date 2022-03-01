@@ -33,12 +33,14 @@ class GenikiTracker(CourierTracker):
         def parse_checkpoint(checkpoint: BeautifulSoup):
             description = checkpoint.find(
                 attrs={"class": "checkpoint-status"}).get_text().replace('Κατάσταση', '')
+            description = description.replace('Status', '').strip()
 
             date = checkpoint.find(
                 attrs={"class": "checkpoint-date"}).get_text().replace('Ημερομηνία', '')
             date = date.split(',')[-1].strip()
             dtime = checkpoint.find(
                 attrs={"class": "checkpoint-time"}).get_text().replace('Ώρα', '')
+            dtime = dtime.replace('Time', '')
             date = date + ' στις ' + dtime
             timestamp = datetime.strptime(date, '%d/%m/%Y στις %H:%M')
 
@@ -47,6 +49,8 @@ class GenikiTracker(CourierTracker):
                 location = location.get_text().replace('Τοποθεσία', '')
             else:
                 location = ""
+            
+            location = location.replace("Location", "")
 
             return TrackingCheckpoint(description, date, location, format_timestamp(timestamp))
 

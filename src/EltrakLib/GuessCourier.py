@@ -13,7 +13,6 @@ def brute_force_track(tracking_number: str):
         results = []
         for future in concurrent.futures.as_completed(future_scan_results):
             data = future.result()
-            print(data)
             if data:
                 results.append(data)
         if len(results)> 0:
