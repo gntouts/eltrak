@@ -13,7 +13,7 @@ app = FastAPI(title="eltrak",
               infrastracture located outside of Greece. Due to lack of tracking numbers in a variety of states
               to test with, some errors are to be expected.
               <br> Any help is welcome. Even if you just provide me with test tracking numbers.""",
-              version="1.0.4", docs_url="/documentation", redoc_url="/redoc"
+              version="0.1.2", docs_url="/documentation", redoc_url="/redoc"
               )
 
 app.add_middleware(
