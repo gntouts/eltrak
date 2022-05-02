@@ -19,11 +19,14 @@ RUN apk add --update \
     musl-dev \
     make \ 
     gcc \
-    firefox-esr \ 
     && rm -rf /var/cache/apk/* \
     && pip wheel -r requirements.txt --wheel-dir=/svc/wheels
 
 FROM python:3.9.10-alpine
+
+RUN apk add --update \
+    firefox-esr \ 
+    && rm -rf /var/cache/apk/
 
 COPY --from=base /svc /svc
 WORKDIR /svc
