@@ -54,10 +54,14 @@ class AcsTracker(CourierTracker):
             dt = details[1].text
             dt = dt.replace('μ.μ.', 'PM')   # They are using 12-hour format so I have to specify AM / PM
             dt = dt.replace('π.μ.', 'AM')
+            dt = dt.replace('/', '/#').split('/')
+            dt[1] = dt[1].replace('#0', '#')
+            dt = "/".join(dt).replace('#', '')
+            dt = dt.strip().rstrip()
 
             try:
-                timestamp = datetime.strptime(dt, ' %d/%m/%y, %I:%M %p ')
-            except ValueError:  # No idea why, but sometimes this breaks
+                timestamp = datetime.strptime(dt, '%d/%m/%y, %I:%M %p')
+            except ValueError:
                 timestamp = datetime.now()  # This can't be left empty, so for now I'm putting he current time until a better solution can be found
 
             date = timestamp.strftime('%d/%m/%Y, %H:%M')
