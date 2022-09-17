@@ -119,3 +119,7 @@ It is also possible to deploy to Caprover using the captain-definition and the d
 ### Contributing
 
 Any help is welcome. Even if you just provide me with test tracking numbers.
+
+### Projects using `eltrak`
+
+- [gr-courier-tracking](https://github.com/gioiliop7/gr-courier-tracking)
