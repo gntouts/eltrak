@@ -1,5 +1,9 @@
 # eltrak
 
+## Heroku
+
+Heroku Free tier is now terminated, so the app is no longer publicly available. All links in the README using the `https://eltrak.herokuapp.com` URL are invalid. I will try to host it somewhere else soon. In the meantime, you can easily deploy `eltrak` yourself. Sorry for the inconvenience.
+
 ## Introduction
 
 **eltrak** intends to become a free to use API to get shipping status for Greek courier services.
