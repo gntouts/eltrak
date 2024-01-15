@@ -2,7 +2,10 @@ name: Docker Image CI Push
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - feat_multiarch
+
 
 env:
   IMAGE_NAME: gntouts/eltrak
@@ -37,5 +40,5 @@ jobs:
         context: .
         push: true
         platforms: linux/amd64,linux/arm64
-        tags: gntouts/eltrak:roll
+        tags: gntouts/eltrak:testing
         labels: ${{ steps.meta.outputs.labels }}

@@ -1,6 +1,9 @@
 name: Docker Image CI Release
 
 on:
+  push:
+    branches:
+      - feat_multiarch
   release:
     types: [published]
     
