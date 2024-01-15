@@ -6,8 +6,6 @@ on:
 
 env:
   IMAGE_NAME: gntouts/eltrak
-  USER: gntouts
-  TAG: roll
   
 jobs:
 
@@ -16,16 +14,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: docker login
-      env:
-        DOCKER_USER: ${{secrets.HUB_NAME }}
-        DOCKER_PASSWORD: ${{secrets.HUB_PWD }}
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        echo ${{ env.IMAGE_NAME }}
-        echo ${{ env.USER }}
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:${{ env.TAG }}
-    - name: Docker Push
-      run: docker push ${{ env.IMAGE_NAME }}:${{ env.TAG }}
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.HUB_NAME }}
+        password: ${{ secrets.HUB_PWD }}
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.IMAGE_NAME }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        platforms: linux/amd64,linux/arm64
+        tags: gntouts/eltrak:roll
+        labels: ${{ steps.meta.outputs.labels }}

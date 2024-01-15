@@ -85,6 +85,12 @@ In order to run the server locally (or anywhere else) run the following commands
 
    `docker build -t eltrak .`
 
+Alternatively, if you want to build a multi-platform image:
+
+   ```bash
+   docker buildx build --platform linux/arm64,linux/amd64 --push -t gntouts/eltrak:latest .
+   ```
+
 3. Start the container
 
    `docker run -dp 8888:80 eltrak`
